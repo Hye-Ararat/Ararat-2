@@ -2,17 +2,13 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export default function Sidebar({ variant, branding, items }) { 
+export default function Sidebar({ variant, items }) { 
     const pathname = usePathname();
     console.log(pathname)
     return (
         <aside className="w-64" aria-label="Sidebar">
-            <div className="overflow-y-auto py-4 px-3 bg-gray-50 rounded dark:bg-gray-800 h-full">
-                <Link href={branding.url} className="flex items-center pl-2.5 mb-5">
-                    <img src={branding.logo} className="mr-3 h-6 sm:h-7" alt={branding.name + " logo"} />
-                    <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">{branding.name}</span>
-                    <span className="bg-red-100 text-red-800 text-1xl font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-red-200 dark:text-red-800 ml-2">PRO</span>
-                </Link>
+            <div className="overflow-y-auto py-4 px-3 bg-gray-50 dark:bg-dark2 h-full">
+           
                 <ul className="space-y-2">
                     {items.map((item) => {
                         return (

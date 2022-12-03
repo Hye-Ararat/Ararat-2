@@ -15,7 +15,8 @@ module.exports = {
       }
     },
   colors: {
-    dark: "#0d141d"
+    dark: "#0d141d",
+    dark2: "#141c26"
   }
   },
   darkMode: "media",
