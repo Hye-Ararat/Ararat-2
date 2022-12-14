@@ -1,4 +1,4 @@
-export default function Table({ columns, rows }) {
+export default function Table({ columns, rows }: { columns:string[], rows: (string|JSX.Element)[][] }) {
     return (
         <>
             <div className="overflow-x-auto relative shadow-md sm:rounded-lg">

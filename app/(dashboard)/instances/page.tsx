@@ -1,7 +1,7 @@
-import Table from "../../components/Table";
+    import Table from "../../../components/Table";
 
 export default function Home() {
-    function instanceFormatter(name) {
+    function instanceFormatter(name: string) {
         return [
             <div className="text-base font-semibold">{name}</div>,
             "Live Data Here?",
