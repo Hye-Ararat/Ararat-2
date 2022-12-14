@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Alert from "../../../components/Alert";
 import Button from "../../../components/Button";
 import Label from "../../../components/Label";
@@ -12,30 +12,24 @@ import { Login } from "../../../lib/api/authentication"
 
 export default function LoginPage() {
     const [error, setError] = useState(null);
-    function validateEmail(email) 
-{
- if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email))
-  {
-    return (true)
-  }
-    return (false)
-}
-    async function doLogin() {
-        let email = (document.getElementById("email") as any).value;
-        if (!validateEmail(email)) return setError("Please enter a valid email address" as any);
-        let results;
-        try {
-            if (email == null || document.getElementById("password") == null) return;
-            results = await Login(email.value, (document.getElementById("password") as any).value)
-        } catch (error) {
-            setError(JSON.stringify(error) as any)
-        }
-        console.log(results)
-    }
-    if (document) {
+    const [loggingIn, setLoggingIn] = useState(false);
+    useEffect(() => {
         document.onkeydown = (ev) => {
             if (ev.key === "Enter") doLogin();
         }
+    }, [])
+    async function doLogin() {
+        setLoggingIn(true)
+        let email = (document.getElementById("email") as any).value;
+        let results;
+        try {
+            if (email == null || document.getElementById("password") == null) return;
+            results = await Login(email, (document.getElementById("password") as any).value)
+        } catch (error) {
+            setError(error as any)
+        }
+        console.log(results)
+        setLoggingIn(false);
     }
  
     return (
@@ -57,7 +51,7 @@ export default function LoginPage() {
                         <TextInput id="password" type="password" placeholder="Password" required />
                     </div>
                     <div className="block">
-                        <Button onClick={() => doLogin()} className="w-full">Login</Button>
+                        <Button loading={loggingIn} onClick={() => doLogin()} className="w-full">Login</Button>
                     </div>
                 </form>
             </div>
