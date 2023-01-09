@@ -18,4 +18,48 @@ model User {
   username String @unique
   password String
   language String
+  permissions UserPermission[]
+  nodePermissions NodePermission[]
+  instancePermissions InstancePermission[]
+}
+
+model Node {
+  id String @id @default(cuid()) @unique
+  url String
+  name String
+  instances Instance[]
+  permissions NodePermission[]
+}
+
+model Instance {
+    id String @id @default(cuid()) @unique
+    node Node @relation(fields: [nodeId], references: [id], onDelete: Cascade)
+    nodeId String
+    name String
+    permissions InstancePermission[]
+}
+
+model InstancePermission {
+  id String @id @default(cuid()) @unique
+  instance Instance @relation(fields: [instanceId], references: [id], onDelete: Cascade)
+  instanceId String
+  permission String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+}
+
+model UserPermission {
+  id String @id @default(cuid()) @unique
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+  permission String
+}
+
+model NodePermission {
+  id String @id @default(cuid()) @unique
+  node Node @relation(fields: [nodeId], references: [id], onDelete: Cascade)
+  nodeId String
+  permission String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
 }
