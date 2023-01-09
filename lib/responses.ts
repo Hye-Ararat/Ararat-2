@@ -69,6 +69,7 @@ export function backgroundResponse(status: number, operation:any, status_code: n
     return response;
 }
 
+
 export function errorResponse(error:number, status:number, metadata?:any) {
     let response: {
         "type": string,
