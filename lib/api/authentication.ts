@@ -1,4 +1,8 @@
-export async function Login(email: string, password: string) {
+interface LoginResult {
+    authorization: string
+}
+
+export async function Login(email: string, password: string) : Promise<LoginResult> {
     return new Promise(async (resolve, reject) => {
         fetch("/api/auth/login" , {
             method: "POST",
