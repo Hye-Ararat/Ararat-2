@@ -6,11 +6,14 @@ import { errorResponse, standardResponse } from "../../../lib/responses";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const {email, password} = JSON.parse(req.body);
-    console.log(req.body)
-    console.log(email)
     const user = await prisma.user.findUnique({
         where: {
             email
+        },
+        include: {
+            permissions: true,
+            instancePermissions: true,
+            nodePermissions: true
         }
     });
     let authError = errorResponse(400, 400, "Invalid email or password")
@@ -24,7 +27,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         email: user.email,
         firstName: user.firstName,
         lastName: user.lastName,
-        language: user.language
+        language: user.language,
+        permissions: user.permissions,
+        instancePermissions: user.instancePermissions,
+        nodePermissions: user.nodePermissions
     }, process.env.ENC_KEY as any, {
         algorithm: "HS256",
         expiresIn: "7d"

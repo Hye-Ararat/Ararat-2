@@ -5,7 +5,7 @@ import Button from "../../../components/Button";
 import Label from "../../../components/Label";
 import TextInput from "../../../components/TextInput";
 import { Login } from "../../../lib/api/authentication"
-
+import { useRouter } from 'next/navigation';
 
 
 
@@ -13,6 +13,7 @@ import { Login } from "../../../lib/api/authentication"
 export default function LoginPage() {
     const [error, setError] = useState(null);
     const [loggingIn, setLoggingIn] = useState(false);
+    const router = useRouter()
     useEffect(() => {
         document.onkeydown = (ev) => {
             if (ev.key === "Enter") doLogin();
@@ -27,8 +28,11 @@ export default function LoginPage() {
             results = await Login(email, (document.getElementById("password") as any).value)
         } catch (error) {
             setError(error as any)
+            setLoggingIn(false);
+            return;
         }
-        console.log(results)
+        document.cookie += `authorization=${results.authorization};path=/;max-age=604800;`;
+        router.push("/")
         setLoggingIn(false);
     }
  
