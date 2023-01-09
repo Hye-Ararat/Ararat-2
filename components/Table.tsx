@@ -43,9 +43,9 @@ export default function Table({ columns, rows }: { columns:string[], rows: (stri
                                     <label htmlFor="checkbox-all-search" className="sr-only">checkbox</label>
                                 </div>
                             </th>
-                            {columns.map((column) => {
+                            {columns.map((column, index) => {
                                 return (
-                                    <th scope="col" className="py-3 px-6">
+                                    <th key={index} scope="col" className="py-3 px-6">
                                         {column}
                                     </th>
                                 )
@@ -55,7 +55,7 @@ export default function Table({ columns, rows }: { columns:string[], rows: (stri
                     <tbody>
                         {rows.map((row, index) => {
                             return (
-                                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                <tr key="index" className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                     <td className="p-4 w-4">
                                         <div className="flex items-center">
                                             <input id="checkbox-table-search-1" type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />

@@ -2,9 +2,14 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export default function Sidebar({ variant, items }) { 
+interface Item {
+    name: string
+    url: string
+    icon: JSX.Element
+}
+
+export default function Sidebar({ variant, items } : {variant: string, items: Item[]}) { 
     const pathname = usePathname();
-    console.log(pathname)
     return (
         <aside className="w-64" aria-label="Sidebar">
             <div className="overflow-y-auto py-4 px-3 bg-gray-50 dark:bg-dark2 h-full">
