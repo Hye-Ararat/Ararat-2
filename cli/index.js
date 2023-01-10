@@ -274,6 +274,7 @@ WantedBy=default.target
     }
     execSync("wget https://github.com/Hye-Ararat/lxd-pkg-snap/releases/download/5.9_amd64/lxd_5.9_amd64.snap -O lib/lxd_amd64.snap")
     execSync("snap install lib/lxd_amd64.snap --dangerous");
+    execSync("rm lib/lxd_amd64.snap");
     console.log("✅ Patched LXD")
     console.log("Generating Encryption Key...");
     const randomString = () => {
