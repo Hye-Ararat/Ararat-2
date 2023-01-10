@@ -243,14 +243,8 @@ WantedBy=default.target
         name: "value",
         message: "What should the password to this database account be?"
     })
-    let cockroachSql = exec("cockroach sql --certs-dir=/var/lib/cockroach/certs --host=development.hye.gg");
-    cockroachSql.stdout.on("data", (d) => {
-        console.log(d.toString());
-    })
-    cockroachSql.stderr.on("data", (d) => {
-        console.log(d.toString())
-    })
-    cockroachSql.stdin.write("\n")
+    //for tomorrow
+    //let cockroachSql = execSync(`cockroach sql --certs-dir=/var/lib/cockroach/certs --host=development.hye.gg --execute"CREATE USER ${dbUsername.value} WITH PASSWORD '${dbPassword.value}'"`);
     console.log("You're node has been setup! You can now navigate to it using the URL you specified earlier in your web browser.")
     }
     )
